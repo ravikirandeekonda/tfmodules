@@ -11,5 +11,5 @@ variable "availability_zones" {
   type = list(string)
 }
 variable "environment" {
-  type    = string
+  type = string
 }
