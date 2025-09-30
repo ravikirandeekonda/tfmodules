@@ -6,11 +6,11 @@ resource "aws_subnet" "public_subnets" {
   map_public_ip_on_launch = true
   depends_on              = [aws_vpc.vpc]
   tags = {
-    Name = "local.project-public-subnet-${element(var.availability_zones, count.index)}"
+    Name = "${local.project}-${var.environment}-public-subnet-${element(var.availability_zones, count.index)}"
   }
 }
 
-resource "aws-subnet" "private_subnets_cidr" {
+resource "aws_subnet" "private_subnets_cidr" {
   count             = length(var.private_subnets_cidr)
   cidr_block        = element(var.private_subnets_cidr, count.index)
   vpc_id            = aws_vpc.vpc.id
@@ -18,6 +18,6 @@ resource "aws-subnet" "private_subnets_cidr" {
   map_public_ip_on_launch = false
   depends_on        = [aws_vpc.vpc]
   tags = {
-    Name = "local.project-private-subnet-${element(var.availability_zones, count.index)}"
+    Name = "${local.project}-${var.environment}-private-subnet-${element(var.availability_zones, count.index)}"
   }
 }
